@@ -15,7 +15,7 @@ class TasksController < ApplicationController
         if @task.update_attributes(task_params)
           render json: @task
         else
-          render status: :unprocessable_entity
+          render nothing: true, status: :unprocessable_entity
         end
       }
     end
@@ -29,8 +29,17 @@ class TasksController < ApplicationController
         if @task.save
           render json: @task
         else
-          render status: :bad_request
+          render nothing: true, status: :bad_request
         end
+      }
+    end
+  end
+
+  def destroy
+    respond_to do |format|
+      format.json {
+        Task.delete(params[:id])
+        render json: params[:id]
       }
     end
   end

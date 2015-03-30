@@ -6,7 +6,7 @@ var NewTaskForm = React.createClass({
                    },
   handleSubmit: function(e) {
         e.preventDefault();
-        this.props.onUserInput(this.state.taskName);
+        TaskActions.addTask({name: this.state.taskName, completed: false})
         this.setState({taskName: ''});
                 },
   handleChange: function(e) {

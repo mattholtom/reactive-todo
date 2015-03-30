@@ -1,21 +1,25 @@
 var Task = React.createClass({
   propTypes: {
     name: React.PropTypes.string,
-    completed: React.PropTypes.bool,
-    onUserInput: React.PropTypes.func
+    completed: React.PropTypes.bool
   },
 
-  handleClick: function() {
-    this.props.onUserInput(this);
+  handleCompletion: function() {
+        this.props.completed = !this.props.completed;
+        TaskActions.updateTask(this.props)
+  },
+
+  handleDeletion: function() {
+    TaskActions.deleteTask(this.props.id);
   },
 
   render: function() {
     return (
-      <li>{this.props.name},
+      <li>{this.props.name} , <button onClick={this.handleDeletion}>Delete</button>
         <input type="checkbox"
           checked={this.props.completed}
           ref="completedInput"
-          onChange={this.handleClick} />
+          onChange={this.handleCompletion} />
       </li>
     );
   }
